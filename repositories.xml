@@ -9,7 +9,7 @@
       <email>jason.oliveira@medicalcannab.is</email>
       <name><![CDATA[Jason Oliveira]]></name>
     </owner>
-    <source type="git">git://gitlab.com/jason.oliveira/brave-overlay.git</source>
+    <source type="git">https://gitlab.com/jason.oliveira/brave-overlay.git</source>
     <feed>https://gitlab.com/jason.oliveira/brave-overlay/commits/master.atom</feed>
   </repo>
 </repositories>
