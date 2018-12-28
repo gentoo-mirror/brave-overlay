@@ -80,7 +80,6 @@ RDEPEND="
 
 QA_PREBUILT="*"
 
-#let's try a few things here.
 S=${WORKDIR}
 
 src_prepare() {
@@ -104,7 +103,8 @@ src_install() {
 
 	dosym ${BRAVE_HOME}/brave /usr/bin/${PN} || die
 
-	#Why the hell did they bury the logo in .pak files? 
+	# Why the hell did they bury the logo in .pak files? 
+	# Menu icons will be blank until this is SRC_URI'd properly. 
 	#newicon "${S}/resources/extensions/brave/img/braveAbout.png" "${PN}.png" || die
 	#newicon -s 128 "${S}/resources/extensions/brave/img/braveAbout.png" "${PN}.png" || die
 
@@ -116,6 +116,9 @@ src_install() {
 pkg_postinst() {
 	xdg_desktop_database_update
 	xdg_mimeinfo_database_update
+	elog "If upgrading from an 0.25.x release or earlier, note that Brave has changed configuration folders."
+	elog "you will have to import your browser data from Settings -> People -> Import Bookmarks and Settings"
+	elog "then choose \"Brave (old)\". All your settings, bookmarks, and passwords should return."
 }
 
 pkg_postrm() {
