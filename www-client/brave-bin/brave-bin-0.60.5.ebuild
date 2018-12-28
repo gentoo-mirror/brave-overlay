@@ -105,8 +105,8 @@ src_install() {
 
 	# Why the hell did they bury the logo in .pak files? 
 	# Menu icons will be blank until this is SRC_URI'd properly. 
-	#newicon "${S}/resources/extensions/brave/img/braveAbout.png" "${PN}.png" || die
-	#newicon -s 128 "${S}/resources/extensions/brave/img/braveAbout.png" "${PN}.png" || die
+	newicon "${FILESDIR}/braveAbout.png" "${PN}.png" || die
+	newicon -s 128 "${FILESDIR}/braveAbout.png" "${PN}.png" || die
 
 	# install-xattr doesnt approve using domenu or doins from FILESDIR
 	cp "${FILESDIR}"/${PN}.desktop "${S}"
