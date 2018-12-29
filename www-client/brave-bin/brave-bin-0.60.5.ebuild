@@ -103,8 +103,6 @@ src_install() {
 
 	dosym ${BRAVE_HOME}/brave /usr/bin/${PN} || die
 
-	# Why the hell did they bury the logo in .pak files? 
-	# Menu icons will be blank until this is SRC_URI'd properly. 
 	newicon "${FILESDIR}/braveAbout.png" "${PN}.png" || die
 	newicon -s 128 "${FILESDIR}/braveAbout.png" "${PN}.png" || die
 
