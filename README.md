@@ -6,4 +6,6 @@
 
 ### How to add this repo in Layman:
 
-`sudo layman -a brave-overlay`    
+    sudo layman -a brave-overlay    
+    sudo layman -s brave-overlay
+    sudo emerge www-client/brave-bin::brave-overlay
