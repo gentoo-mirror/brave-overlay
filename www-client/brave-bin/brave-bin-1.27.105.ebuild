@@ -22,6 +22,9 @@ SLOT="0"
 KEYWORDS="amd64"
 IUSE="gnome-keyring"
 
+# Delete all but candy when https://github.com/brave/brave-browser/issues/16985 is closed.
+FEATURES="-sandbox -usersandbox candy"
+
 DEPEND="gnome-base/gconf:2"
 RDEPEND="
 	${DEPEND}
@@ -87,6 +90,10 @@ src_prepare() {
 		chromium_remove_language_paks
 	popd > /dev/null || die
 
+	# Brave has a bug in 1.27.105 where it needs crashpad_handler chmodded
+	# Delete this when https://github.com/brave/brave-browser/issues/16985 is resolved.
+	chmod 755 "${S}/crashpad_handler" || die
+
 	default
 }
 
@@ -103,9 +110,6 @@ src_install() {
 
 	dosym ${BRAVE_HOME}/brave /usr/bin/${PN} || die
 
-	# Brave has a bug in 1.27.105 where it needs crashpad_handler chmodded
-	# Delete this when https://github.com/brave/brave-browser/issues/16985 is resolved.
-	chmod 755 "${BRAVE_HOME}/crashpad_handler" || die
 	# Install Icons for Brave. 
 	newicon "${FILESDIR}/braveAbout.png" "${PN}.png" || die
 	newicon -s 128 "${FILESDIR}/braveAbout.png" "${PN}.png" || die
