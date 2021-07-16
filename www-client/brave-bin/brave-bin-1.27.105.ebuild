@@ -102,11 +102,11 @@ src_install() {
 
 	# matches everhthing except for crashpad_handler. Thanks for curdlesnoot for going
 	# above and beyond the call of duty here.
-		insto ${BRAVE_HOME}
-			doins -r !crashpad_handler
+		insinto ${BRAVE_HOME}
+		#	doins -r !(brave|crashpad_handler)
 	# Old Code to uncomment when bug is fixed.
 		#insinto ${BRAVE_HOME}
-		#	doins -r *
+			doins -r *
 
 			exeinto ${BRAVE_HOME}
 				doexe brave crashpad_handler
