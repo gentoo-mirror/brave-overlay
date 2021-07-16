@@ -42,6 +42,7 @@ RDEPEND="
 	x11-libs/libXau
 	x11-libs/libXdmcp
 	x11-libs/libXinerama
+	x11-libs/libxkbcommon
 	dev-libs/glib
 	dev-libs/nss
 	dev-libs/nspr
