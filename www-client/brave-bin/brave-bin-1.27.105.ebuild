@@ -22,8 +22,6 @@ SLOT="0"
 KEYWORDS="amd64"
 IUSE="gnome-keyring"
 
-FEATURES="candy"
-
 DEPEND="gnome-base/gconf:2"
 RDEPEND="
 	${DEPEND}
@@ -118,10 +116,6 @@ src_install() (
 )
 
 pkg_postinst() {
-	# Brave has a bug in 1.27.105 where it needs crashpad_handler chmodded
-	# Delete this when https://github.com/brave/brave-browser/issues/16985 is resolved.
-	# chmod 755 /opt/brave/crashpad_handler || die
-
 	xdg_desktop_database_update
 	xdg_mimeinfo_database_update
 	elog "If upgrading from an 0.25.x release or earlier, note that Brave has changed configuration folders."
