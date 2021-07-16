@@ -22,8 +22,7 @@ SLOT="0"
 KEYWORDS="amd64"
 IUSE="gnome-keyring"
 
-# Delete all but candy when https://github.com/brave/brave-browser/issues/16985 is closed.
-FEATURES="-sandbox -usersandbox candy"
+FEATURES="candy"
 
 DEPEND="gnome-base/gconf:2"
 RDEPEND="
