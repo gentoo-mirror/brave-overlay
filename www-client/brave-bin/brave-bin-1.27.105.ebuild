@@ -93,21 +93,17 @@ src_prepare() {
 	default
 }
 
-src_install() {
+src_install() (
 	shopt -s extglob
 
 		declare BRAVE_HOME=/opt/${BRAVE_PN}
 
 		dodir ${BRAVE_HOME%/*}
 
-	# matches everhthing except for crashpad_handler. Thanks for curdlesnoot for going
-	# above and beyond the call of duty here.
 		insinto ${BRAVE_HOME}
-		#	doins -r !(brave|crashpad_handler)
-	# Old Code to uncomment when bug is fixed.
-		#insinto ${BRAVE_HOME}
 			doins -r *
-
+    # Brave has a bug in 1.27.105 where it needs crashpad_handler chmodded
+    # Delete crashpad_handler when https://github.com/brave/brave-browser/issues/16985 is resolved.
 			exeinto ${BRAVE_HOME}
 				doexe brave crashpad_handler
 
@@ -120,7 +116,7 @@ src_install() {
 	# install-xattr doesnt approve using domenu or doins from FILESDIR
 		cp "${FILESDIR}"/${PN}.desktop "${S}"
 		domenu "${S}"/${PN}.desktop
-}
+)
 
 pkg_postinst() {
 	# Brave has a bug in 1.27.105 where it needs crashpad_handler chmodded
