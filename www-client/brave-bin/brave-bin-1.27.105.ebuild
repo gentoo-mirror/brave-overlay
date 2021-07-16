@@ -90,33 +90,36 @@ src_prepare() {
 		chromium_remove_language_paks
 	popd > /dev/null || die
 
-	# Brave has a bug in 1.27.105 where it needs crashpad_handler chmodded
-	# Delete this when https://github.com/brave/brave-browser/issues/16985 is resolved.
-	chmod 755 "${S}/crashpad_handler" || die
-
 	default
 }
 
 src_install() {
-	declare BRAVE_HOME=/opt/${BRAVE_PN}
+	shopt -s extglob
 
-	dodir ${BRAVE_HOME%/*}
+		declare BRAVE_HOME=/opt/${BRAVE_PN}
 
-	insinto ${BRAVE_HOME}
-		doins -r *
+		dodir ${BRAVE_HOME%/*}
 
-	exeinto ${BRAVE_HOME}
-		doexe brave
+	# matches everhthing except for crashpad_handler. Thanks for curdlesnoot for going
+	# above and beyond the call of duty here.
+		insto ${BRAVE_HOME}
+			doins -r !crashpad_handler
+	# Old Code to uncomment when bug is fixed.
+		#insinto ${BRAVE_HOME}
+		#	doins -r *
 
-	dosym ${BRAVE_HOME}/brave /usr/bin/${PN} || die
+			exeinto ${BRAVE_HOME}
+				doexe brave crashpad_handler
+
+		dosym ${BRAVE_HOME}/brave /usr/bin/${PN} || die
 
 	# Install Icons for Brave. 
-	newicon "${FILESDIR}/braveAbout.png" "${PN}.png" || die
-	newicon -s 128 "${FILESDIR}/braveAbout.png" "${PN}.png" || die
+		newicon "${FILESDIR}/braveAbout.png" "${PN}.png" || die
+		newicon -s 128 "${FILESDIR}/braveAbout.png" "${PN}.png" || die
 
 	# install-xattr doesnt approve using domenu or doins from FILESDIR
-	cp "${FILESDIR}"/${PN}.desktop "${S}"
-	domenu "${S}"/${PN}.desktop
+		cp "${FILESDIR}"/${PN}.desktop "${S}"
+		domenu "${S}"/${PN}.desktop
 }
 
 pkg_postinst() {
