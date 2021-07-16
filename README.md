@@ -1,3 +1,6 @@
+If you are reading this on github, this means you are on a mirror.    
+Please submit issues to https://gitlab.com/jason.oliveira/brave-overlay
+
 ### How to add this repo in eselect:
 
     sudo eselect repository enable brave-overlay    
