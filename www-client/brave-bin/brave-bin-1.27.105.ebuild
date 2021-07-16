@@ -92,7 +92,8 @@ src_prepare() {
 
 	# Brave has a bug in 1.27.105 where it needs crashpad_handler chmodded
 	# Delete this when https://github.com/brave/brave-browser/issues/16985 is resolved.
-	chmod 755 "${S}/crashpad_handler" || die
+	# thanks to sam_ on #gentoo for teaching me about fperms.
+	fperms 755 "${S}/crashpad_handler" || die
 
 	default
 }
