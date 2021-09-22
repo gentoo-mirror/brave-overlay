@@ -103,7 +103,7 @@ src_install() (
     # Brave has a bug in 1.27.105 where it needs crashpad_handler chmodded
     # Delete crashpad_handler when https://github.com/brave/brave-browser/issues/16985 is resolved.
 			exeinto ${BRAVE_HOME}
-				doexe brave crashpad_handler
+				doexe brave #crashpad_handler
 
 		dosym ${BRAVE_HOME}/brave /usr/bin/${PN} || die
 
