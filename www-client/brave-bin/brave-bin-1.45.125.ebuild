@@ -1,7 +1,7 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2022 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 BRAVE_PN="${PN/-bin/}"
 
@@ -22,6 +22,7 @@ SLOT="0"
 KEYWORDS="amd64"
 IUSE="gnome-keyring"
 
+BDEPEND="app-arch/unzip"
 DEPEND="gnome-base/gconf:2"
 RDEPEND="
 	${DEPEND}
@@ -100,20 +101,24 @@ src_install() (
 
 		insinto ${BRAVE_HOME}
 			doins -r *
-    # Brave has a bug in 1.27.105 where it needs crashpad_handler chmodded
-    # Delete crashpad_handler when https://github.com/brave/brave-browser/issues/16985 is resolved.
+
+	# Brave has a bug in 1.27.105 where it needs crashpad_handler chmodded
+	# Delete crashpad_handler when https://github.com/brave/brave-browser/issues/16985 is resolved.
 			exeinto ${BRAVE_HOME}
 				doexe brave chrome_crashpad_handler
 
 		dosym ${BRAVE_HOME}/brave /usr/bin/${PN} || die
 
-	# Install Icons for Brave. 
+	# Install Icons for Brave.
 		newicon "${FILESDIR}/braveAbout.png" "${PN}.png" || die
 		newicon -s 128 "${FILESDIR}/braveAbout.png" "${PN}.png" || die
 
 	# install-xattr doesnt approve using domenu or doins from FILESDIR
 		cp "${FILESDIR}"/${PN}.desktop "${S}"
 		domenu "${S}"/${PN}.desktop
+
+	# Fix permissions of the sandbox
+		chmod 4755 "${ED}"/opt/brave/chrome-sandbox || die && echo "chmod of sandbox failed"
 )
 
 pkg_postinst() {
