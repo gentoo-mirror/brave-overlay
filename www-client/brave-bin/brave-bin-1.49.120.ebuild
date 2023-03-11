@@ -22,7 +22,8 @@ SLOT="0"
 KEYWORDS="amd64"
 IUSE="gnome-keyring"
 
-DEPEND="gnome-base/gconf:2"
+# gconf is deprecated.
+# DEPEND="gnome-base/gconf:2"
 RDEPEND="
 	${DEPEND}
 	dev-libs/libpthread-stubs
